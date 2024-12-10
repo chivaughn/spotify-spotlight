@@ -1,0 +1,23 @@
+{
+  "name": "spotify-spotlight",
+  "version": "1.0.0",
+  "license": "GPL-3.0",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server/index.js",
+    "client": "npm --prefix client run dev",
+    "build": "npm --prefix client run build"
+  },
+  "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "concurrently": "^8.0.1",
+    "nodemon": "^3.0.0"
+  }
+}
