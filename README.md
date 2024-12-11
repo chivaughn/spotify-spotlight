@@ -40,6 +40,7 @@ You are free to use, modify, and distribute this project under the terms of the 
 
 This project uses:
 
-- [spotify-profile](https://github.com/bchiang7/spotify-profile) by Brittany Chiang, licensed under the GNU General Public License v3.0.
+- [spotify-profile](https://github.com/bchiang7/spotify-profile) by Brittany Chiang.  
+  Note: As the repository does not specify a license, this project follows GitHub's default [Terms of Service](https://docs.github.com/en/site-policy/github-terms/github-terms-of-service) for repository use.
 - [SvelteKit](https://svelte.dev/).
 - [Tailwind CSS](https://tailwindcss.com/).
