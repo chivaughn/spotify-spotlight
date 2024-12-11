@@ -4,7 +4,7 @@
 	import { setUser, userStore } from '../store/userStore';
 	import type { User } from '../store/userStore';
 
-	let user: User | null = null;
+	let user: User | null = $state(null);
 
 	function loginToSpotify() {
 		window.location.href = 'http://localhost:3000/login'; // Adjust for your server's address
@@ -23,8 +23,10 @@
 	}
 
 	// Subscribe to the store
-	$: userStore.subscribe((value) => {
-		user = value;
+	$effect(() => {
+		userStore.subscribe((value) => {
+			user = value;
+		});
 	});
 
 	onMount(() => {
@@ -44,7 +46,7 @@
 			<span>Welcome, {user.display_name}</span>
 			<button
 				class="rounded-full bg-red-600 px-6 py-2 font-bold text-white transition duration-200 hover:bg-red-700"
-				on:click={logout}
+				onclick={logout}
 			>
 				Logout
 			</button>
@@ -52,7 +54,7 @@
 	{:else}
 		<button
 			class="rounded-full bg-green-600 px-6 py-2 font-bold text-white transition duration-200 hover:bg-green-600"
-			on:click={loginToSpotify}
+			onclick={loginToSpotify}
 		>
 			Login
 		</button>
