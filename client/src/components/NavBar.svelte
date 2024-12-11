@@ -7,7 +7,7 @@
 	let user: User | null = $state(null);
 
 	function loginToSpotify() {
-		window.location.href = 'http://localhost:3000/login'; // Adjust for your server's address
+		window.location.href = 'https://spotify-spotlight.vercel.app/login'; // Adjust for your server's address
 	}
 
 	async function fetchUser() {
