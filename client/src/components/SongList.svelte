@@ -4,13 +4,13 @@
 	import { onMount } from 'svelte';
 	import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
 	import { db } from '../lib/firebase.ts';
+	let { loading } = $props();
 
 	let today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
 	/**
 	 * @type {string | any[]}
 	 */
-	let songs = [];
-	let loading = true;
+	let songs = $state([]);
 
 	function fetchSongsForToday() {
 		try {
@@ -25,6 +25,8 @@
 			// Set up real-time listener
 			const unsubscribe = onSnapshot(todayQuery, (snapshot) => {
 				if (snapshot.empty) {
+					loading = true;
+
 					console.log('No songs found for today.');
 					songs = []; // Clear the songs list if no data is found
 				} else {
@@ -56,7 +58,7 @@
 	<h2 class="mb-6 text-4xl font-bold text-gray-900">Today's Songs</h2>
 
 	<div class="space-y-4">
-		{#if loading}
+		{#if loading == true}
 			<!-- Loading Spinner -->
 			<div class="flex items-center justify-center p-6">
 				<div class="h-12 w-12 animate-spin rounded-full border-t-4 border-green-500"></div>
@@ -67,8 +69,14 @@
 					class="flex items-center rounded-lg bg-gray-900 p-4 shadow-lg transition-colors hover:bg-gray-800"
 				>
 					<!-- Album Art Placeholder -->
-					<div class="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-700">
-						<span class="text-3xl font-bold text-white">🎵</span>
+					<div
+						class="flex h-16 w-16 items-center justify-center overflow-hidden rounded-lg bg-gray-700"
+					>
+						<img
+							src={song.song_album}
+							alt="{song.song_name} album cover"
+							class="h-full w-full object-cover"
+						/>
 					</div>
 
 					<!-- Song Details -->
