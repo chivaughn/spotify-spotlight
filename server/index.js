@@ -11,8 +11,8 @@ app.use(cookieParser());
 
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-let REDIRECT_URI = "http://localhost:3000/callback";
-let FRONTEND_URI = "http://localhost:5173";
+let REDIRECT_URI = process.env.REDIRECT_URI;
+let FRONTEND_URI = process.env.FRONTEND_URI;
 
 const PORT = 3000;
 
