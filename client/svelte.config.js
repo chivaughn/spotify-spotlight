@@ -13,7 +13,7 @@ const config = {
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
 		adapter: adapter({
 			// see below for options that can be set here
-			runtime: 'nodejs22.12.0'
+			runtime: '20.18.1'
 		})
 	}
 };
