@@ -11,8 +11,10 @@ const config = {
 		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
 		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter(),
-		runtime: 'nodejs22.12.0'
+		adapter: adapter({
+			// see below for options that can be set here
+			runtime: 'nodejs22.12.0'
+		})
 	}
 };
 
