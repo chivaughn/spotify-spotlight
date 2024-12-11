@@ -8,6 +8,12 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	type Song = {
+		id: string | null;
+		name: string | null;
+		artist: string;
+	};
 }
 
 export {};
