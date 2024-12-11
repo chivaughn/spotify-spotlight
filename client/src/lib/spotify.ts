@@ -102,7 +102,8 @@ export const logout = () => {
 		window.localStorage.removeItem('spotify_access_token');
 		window.localStorage.removeItem('spotify_refresh_token');
 		clearUser();
-		window.location.href = 'http://localhost:5173/'; // Adjust for your server's address
+		window.location.href =
+			'https://spotify-spotlight-fgod-kmqj04sm1-chivaughns-projects.vercel.app/'; // Adjust for your server's address
 	}
 };
 
