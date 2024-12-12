@@ -25,8 +25,7 @@
 			// Set up real-time listener
 			const unsubscribe = onSnapshot(todayQuery, (snapshot) => {
 				if (snapshot.empty) {
-					loading = true;
-
+					loading = false;
 					console.log('No songs found for today.');
 					songs = []; // Clear the songs list if no data is found
 				} else {
