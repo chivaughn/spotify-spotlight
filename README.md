@@ -12,6 +12,12 @@ A web app that uses Firebase and the Spotify API to allow users to add their son
 
 ---
 
+## Screenshots
+
+![Homepage Screenshot](./screenshots/homepage.png)
+
+---
+
 ## Usage
 
 1. **Log in**: Use your Spotify account to authenticate.
