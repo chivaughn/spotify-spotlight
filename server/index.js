@@ -7,6 +7,9 @@ const cookieParser = require("cookie-parser");
 const querystring = require("querystring");
 const path = require("path");
 
+const app = express();
+app.use(cookieParser());
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 let REDIRECT_URI = process.env.REDIRECT_URI;
@@ -31,29 +34,10 @@ const generateRandomString = (length) => {
 
 const stateKey = "spotify_auth_state";
 
-const app = express();
-// Priority serve any static files.
-app.use(express.static(path.resolve(__dirname, "../client/build")));
-
-app
-  .use(express.static(path.resolve(__dirname, "../client/build")))
-  .use(cors())
-  .use(cookieParser())
-  .use(
-    history({
-      verbose: true,
-      rewrites: [
-        { from: /\/login/, to: "/login" },
-        { from: /\/callback/, to: "/callback" },
-        { from: /\/refresh_token/, to: "/refresh_token" },
-      ],
-    })
-  )
-  .use(express.static(path.resolve(__dirname, "../client/build")));
-
-app.get("/", function (req, res) {
-  res.render(path.resolve(__dirname, "../client/build/index.html"));
+app.get("/", (req, res) => {
+  res.send("Spotify Spotlight Server");
 });
+
 app.get("/login", function (req, res) {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
