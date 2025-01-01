@@ -128,7 +128,7 @@
 						target="_blank"
 						class="ml-auto flex items-center rounded-full px-4 py-2 font-semibold text-white transition-colors"
 					>
-						<i class="fas fa-info-circle text-2xl"></i>
+						<i class="fas fa-play text-2xl"></i>
 					</a>
 				</div>
 			{/each}
