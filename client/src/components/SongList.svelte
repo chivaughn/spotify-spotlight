@@ -2,7 +2,7 @@
 	// @ts-nocheck
 
 	import { onMount } from 'svelte';
-	import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
+	import { collection, query, where, getDocs, onSnapshot, getDoc } from 'firebase/firestore';
 	import { db } from '../lib/firebase.ts';
 	let { loading } = $props();
 
