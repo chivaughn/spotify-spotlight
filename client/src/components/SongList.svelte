@@ -34,21 +34,43 @@
 				where('date', 'in', [formattedDateShort, formattedDateLong])
 			);
 
-			// Set up real-time listener
-			const unsubscribe = onSnapshot(todayQuery, (snapshot) => {
+			const unsubscribe = onSnapshot(todayQuery, async (snapshot) => {
 				if (snapshot.empty) {
 					loading = false;
 					console.log('No songs found for today.');
 					songs = []; // Clear the songs list if no data is found
 				} else {
-					// Map the documents into an array of songs
-					songs = snapshot.docs.map((doc) => ({
-						id: doc.id, // Firestore document ID
-						...doc.data() // Spread the rest of the document data
-					}));
+					// Fetch user data for each song
+					const fetchedSongs = await Promise.all(
+						snapshot.docs.map(async (docSnapshot) => {
+							const songData = docSnapshot.data();
+							const addedById = songData.added_by;
+
+							let user = null;
+							if (addedById) {
+								try {
+									// Reference the user document using the ID
+									const userDoc = await getDoc(doc(db, 'users', addedById));
+									if (userDoc.exists()) {
+										user = { id: userDoc.id, ...userDoc.data() };
+									}
+								} catch (error) {
+									console.error(`Failed to fetch user for ID: ${addedById}`, error);
+								}
+							}
+
+							return {
+								id: docSnapshot.id, // Song document ID
+								...songData, // Song data
+								user // Linked user data or null
+							};
+						})
+					);
+
+					songs = fetchedSongs; // Update the songs with user data
 					loading = false;
 
-					console.log('Songs updated for today:', songs);
+					console.log('Songs updated for today with user details:', songs);
 				}
 			});
 
@@ -94,7 +116,9 @@
 					<div class="ml-4 flex flex-col">
 						<span class="text-lg font-semibold text-white">{song.song_name}</span>
 						<span class="text-sm text-gray-400">by {song.artist_name}</span>
-						<span class="mt-1 text-xs text-gray-500">Added by: {song.added_by}</span>
+						<span class="mt-1 text-xs text-gray-500"
+							>Added by: {song.user.disdisplayName ?? song.display_name ?? song.added_by}</span
+						>
 					</div>
 
 					<!-- Info Icon Button -->
