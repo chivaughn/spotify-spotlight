@@ -117,7 +117,7 @@
 						<span class="text-lg font-semibold text-white">{song.song_name}</span>
 						<span class="text-sm text-gray-400">by {song.artist_name}</span>
 						<span class="mt-1 text-xs text-gray-500"
-							>Added by: {song.user.displayName ?? song.display_name ?? song.added_by}</span
+							>Added by: {song.user?.displayName ?? song.display_name ?? song.added_by}</span
 						>
 					</div>
 
