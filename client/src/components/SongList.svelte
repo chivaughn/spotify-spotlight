@@ -14,13 +14,25 @@
 
 	function fetchSongsForToday() {
 		try {
-			const today = new Date().toISOString().split('T')[0]; // Format: YYYY-MM-DD
+			const today = new Date();
+			const year = today.getFullYear();
+			const month = today.getMonth() + 1; // Months are 0-based
+			const day = today.getDate();
+
+			// Format date as YYYY-M-D
+			const formattedDateShort = `${year}-${month}-${day}`;
+
+			// Format date as YYYY-MM-DD
+			const formattedDateLong = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
 
 			// Reference the songs collection
 			const songsCollectionRef = collection(db, 'songs');
 
-			// Query for songs added on today's date
-			const todayQuery = query(songsCollectionRef, where('date', '==', today));
+			// Query for songs added on either date format
+			const todayQuery = query(
+				songsCollectionRef,
+				where('date', 'in', [formattedDateShort, formattedDateLong])
+			);
 
 			// Set up real-time listener
 			const unsubscribe = onSnapshot(todayQuery, (snapshot) => {
