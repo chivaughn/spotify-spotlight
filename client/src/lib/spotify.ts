@@ -49,14 +49,14 @@ const getLocalRefreshToken = (): string | null => {
 const refreshAccessToken = async (): Promise<void> => {
 	try {
 		if (typeof window !== 'undefined') {
-			const { data } = await axios.get(`/refresh_token?refresh_token=${getLocalRefreshToken()}`);
-			const { access_token } = data;
-			setLocalAccessToken(access_token);
+			window.localStorage.removeItem('spotify_token_timestamp');
+			window.localStorage.removeItem('spotify_access_token');
+			window.localStorage.removeItem('spotify_refresh_token');
+
 			window.location.reload();
-			return;
 		}
-	} catch (e) {
-		console.error(e);
+	} catch (error) {
+		console.error('Error refreshing access token:', error);
 	}
 };
 
